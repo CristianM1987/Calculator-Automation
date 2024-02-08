@@ -9,4 +9,5 @@ export const variables = {
   integrateCheck : '#integerSelect',
   answerTextBox : '#numberAnswerField',
   clearButton : '#clearButton',
+  wrongEntry : '#errorMsgField',
 }
