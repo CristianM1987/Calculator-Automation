@@ -15,8 +15,9 @@ test('sum', async ({ page }) => {
   await page.locator(variables.secondNumber).fill("8")
   await page.locator(variables.operationCombo).selectOption('Add')
   await page.locator(variables.calculateButton).click()
-  const resultado = page.locator(variables.answerTextBox)
-  await expect(resultado).toHaveValue('18')
+  let resultado = await page.locator(variables.answerTextBox).inputValue()
+  console.log('el resultado de sum es ', resultado)
+  await expect(resultado).toBe('18')
   
 });
 
