@@ -183,3 +183,17 @@ test('clear', async ({ page }) => {
   await expect(resultado).toHaveValue('')
   
 });
+
+test('sumWithIntegrate', async ({ page }) => {
+
+  await page.goto(variables.calculatorPage)
+  await page.fill(variables.firstNumber, '10.5')
+  await page.locator(variables.secondNumber).fill("8.4")
+  await page.locator(variables.operationCombo).selectOption('Add')
+  await page.locator(variables.integrateCheck).check()
+  await page.locator(variables.calculateButton).click()
+  const resultado = page.locator(variables.answerTextBox)
+  await expect(resultado).toHaveValue('18')
+  
+});
+
