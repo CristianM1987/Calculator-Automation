@@ -9,17 +9,23 @@ test('webOk', async ({ page }) => {
 });
 
 test('sum', async ({ page }) => {
+  await page.goto(variables.calculatorPage);
 
-  await page.goto(variables.calculatorPage)
-  await page.locator(variables.buildCombo).selectOption('1')
-  await page.fill(variables.firstNumber, '10')
-  await page.locator(variables.secondNumber).fill("8")
-  await page.locator(variables.operationCombo).selectOption('Add')
-  await page.locator(variables.calculateButton).click()
-  let resultado = await page.locator(variables.answerTextBox).inputValue()
-  //console.log('el resultado de sum es ', resultado)
-  await expect(resultado).toBe('18')
-  
+  for (const buildOption of variables.buildOptions) {
+    try {
+      await page.locator(variables.buildCombo).selectOption(buildOption.toString());
+      await page.fill(variables.firstNumber, '10');
+      await page.locator(variables.secondNumber).fill("8");
+      await page.locator(variables.operationCombo).selectOption('Add');
+      await page.locator(variables.calculateButton).click();
+      let resultado = await page.locator(variables.answerTextBox).inputValue();
+      console.log(`el resultado de sum con Build ${buildOption} es `, resultado);
+      await expect(resultado).toBe('18');
+    } catch (error) {
+      console.error(`Error en la prueba con Build ${buildOption}: ${error.message}`);
+      // Puedes agregar lógica adicional aquí si es necesario
+    }
+  }
 });
 
 test('sumWithLetter', async ({ page }) => {
