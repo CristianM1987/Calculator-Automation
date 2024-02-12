@@ -138,6 +138,19 @@ test('division', async ({ page }) => {
   
 });
 
+test('divisionWithZero', async ({ page }) => {
+
+  await page.goto(variables.calculatorPage)
+  await page.fill(variables.firstNumber, '0')
+  await page.locator(variables.secondNumber).fill("0")
+  await page.locator(variables.operationCombo).selectOption('Divide')
+  await page.locator(variables.calculateButton).click()
+  const msjDivisionZero = await page.locator(variables.wrongEntry).textContent();
+  await expect(msjDivisionZero).toBe('Divide by zero error!');
+  console.log('el resultado de division por 0 es ', msjDivisionZero)
+  
+});
+
 test('divisionWithLetter', async ({ page }) => {
 
   await page.goto(variables.calculatorPage)
